@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>F1 Portfolio — Full Telemetry Dashboard</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0a0a0e; display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+.telem { width: 100%; max-width: 780px; min-height: 560px; background: #0e0e12; border-radius: 12px; overflow: hidden; padding: 16px; }
+.telem-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid #1e1e26; }
+.th-left { display: flex; align-items: center; gap: 10px; }
+.th-badge { padding: 3px 10px; background: rgba(239,159,39,0.15); border: 1px solid rgba(239,159,39,0.3); border-radius: 4px; font-size: 10px; color: #ef9f27; letter-spacing: 1px; text-transform: uppercase; }
+.th-title { font-size: 16px; color: #e8e6e0; font-weight: 500; }
+.th-close { color: #6a6860; font-size: 12px; cursor: pointer; padding: 4px 10px; border: 1px solid #2a2a32; border-radius: 4px; }
+.th-close:hover { border-color: #4a4a52; color: #e8e6e0; }
+.telem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.panel { background: #141418; border: 1px solid #1e1e26; border-radius: 10px; padding: 14px 16px; }
+.panel-title { font-size: 10px; color: #6a6860; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.panel-title::before { content: ''; width: 4px; height: 4px; border-radius: 50%; }
+.p-green .panel-title::before { background: #5dca85; }
+.p-amber .panel-title::before { background: #ef9f27; }
+.p-blue .panel-title::before { background: #85b7eb; }
+.p-purple .panel-title::before { background: #afa9ec; }
+.proj-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid #1a1a22; }
+.proj-row:last-child { border-bottom: none; }
+.pr-name { font-size: 12px; color: #c8c6be; }
+.pr-stat { font-size: 11px; font-family: 'SF Mono', 'Cascadia Code', monospace; }
+.pr-stat.fast { color: #5dca85; }
+.pr-stat.mid { color: #ef9f27; }
+.pr-stat.slow { color: #85b7eb; }
+.compound { display: flex; align-items: center; gap: 8px; padding: 5px 0; }
+.tire-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid; }
+.tire-soft { border-color: #e24b4a; background: rgba(226,75,74,0.2); }
+.tire-med { border-color: #ef9f27; background: rgba(239,159,39,0.2); }
+.tire-hard { border-color: #e8e6e0; background: rgba(232,230,224,0.15); }
+.tire-inter { border-color: #5dca85; background: rgba(93,202,133,0.2); }
+.tire-wet { border-color: #85b7eb; background: rgba(133,183,235,0.2); }
+.comp-name { font-size: 12px; color: #c8c6be; flex: 1; }
+.comp-detail { font-size: 11px; color: #6a6860; }
+.eng-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; }
+.eng-label { font-size: 12px; color: #9a9890; }
+.eng-bar { width: 80px; height: 6px; background: #1a1a22; border-radius: 3px; overflow: hidden; }
+.eng-fill { height: 100%; border-radius: 3px; }
+.f-high { background: #5dca85; }
+.f-mid { background: #ef9f27; }
+.f-low { background: #85b7eb; }
+.exp-item { padding: 6px 0; border-bottom: 1px solid #1a1a22; }
+.exp-item:last-child { border-bottom: none; }
+.exp-role { font-size: 12px; color: #c8c6be; font-weight: 500; }
+.exp-co { font-size: 11px; color: #6a6860; margin-top: 1px; }
+.exp-time { font-size: 10px; color: #4a4840; font-family: 'SF Mono', 'Cascadia Code', monospace; margin-top: 2px; }
+</style>
+</head>
+<body>
+<div class="telem">
+  <div class="telem-header">
+    <div class="th-left">
+      <div class="th-badge">Telemetry</div>
+      <div class="th-title">Full race data — Sai Emani</div>
+    </div>
+    <div class="th-close">ESC to close</div>
+  </div>
+  <div class="telem-grid">
+    <div class="panel p-green">
+      <div class="panel-title">Sector 3 — project lap times</div>
+      <div class="proj-row">
+        <div class="pr-name">PEGASUS summarizer</div>
+        <div class="pr-stat fast">ROUGE-1: 41.97</div>
+      </div>
+      <div class="proj-row">
+        <div class="pr-name">Colorado crash analysis</div>
+        <div class="pr-stat fast">1.63M records / 99.95%</div>
+      </div>
+      <div class="proj-row">
+        <div class="pr-name">FloraSense crop disease</div>
+        <div class="pr-stat fast">92%+ val accuracy</div>
+      </div>
+      <div class="proj-row">
+        <div class="pr-name">AI Stock Picker</div>
+        <div class="pr-stat mid">6 models / RF winner</div>
+      </div>
+      <div class="proj-row">
+        <div class="pr-name">Maieutic (Socratic tutor)</div>
+        <div class="pr-stat slow">RAG + Claude API</div>
+      </div>
+      <div class="proj-row">
+        <div class="pr-name">Stroke rehab pipeline</div>
+        <div class="pr-stat slow">OpenSim + Moco</div>
+      </div>
+    </div>
+    <div class="panel p-amber">
+      <div class="panel-title">Tire compound allocation</div>
+      <div class="compound">
+        <div class="tire-dot tire-soft"></div>
+        <div class="comp-name">Python</div>
+        <div class="comp-detail">Primary — ML, data, backend</div>
+      </div>
+      <div class="compound">
+        <div class="tire-dot tire-med"></div>
+        <div class="comp-name">JavaScript / Node.js</div>
+        <div class="comp-detail">Full-stack, APIs, React</div>
+      </div>
+      <div class="compound">
+        <div class="tire-dot tire-hard"></div>
+        <div class="comp-name">Java</div>
+        <div class="comp-detail">Systems, Android</div>
+      </div>
+      <div class="compound">
+        <div class="tire-dot tire-inter"></div>
+        <div class="comp-name">SQL</div>
+        <div class="comp-detail">PostgreSQL, MongoDB, SQLite</div>
+      </div>
+      <div class="compound">
+        <div class="tire-dot tire-wet"></div>
+        <div class="comp-name">Frameworks</div>
+        <div class="comp-detail">PyTorch, TF, Flask, Express</div>
+      </div>
+    </div>
+    <div class="panel p-blue">
+      <div class="panel-title">Engine modes — skill depth</div>
+      <div class="eng-row">
+        <div class="eng-label">Deep learning</div>
+        <div class="eng-bar"><div class="eng-fill f-high" style="width:92%"></div></div>
+      </div>
+      <div class="eng-row">
+        <div class="eng-label">NLP / transformers</div>
+        <div class="eng-bar"><div class="eng-fill f-high" style="width:88%"></div></div>
+      </div>
+      <div class="eng-row">
+        <div class="eng-label">Computer vision</div>
+        <div class="eng-bar"><div class="eng-fill f-high" style="width:85%"></div></div>
+      </div>
+      <div class="eng-row">
+        <div class="eng-label">RAG / embeddings</div>
+        <div class="eng-bar"><div class="eng-fill f-mid" style="width:78%"></div></div>
+      </div>
+      <div class="eng-row">
+        <div class="eng-label">Full-stack dev</div>
+        <div class="eng-bar"><div class="eng-fill f-mid" style="width:75%"></div></div>
+      </div>
+      <div class="eng-row">
+        <div class="eng-label">MLOps / Docker</div>
+        <div class="eng-bar"><div class="eng-fill f-low" style="width:65%"></div></div>
+      </div>
+      <div class="eng-row">
+        <div class="eng-label">Cloud (AWS/GCP)</div>
+        <div class="eng-bar"><div class="eng-fill f-low" style="width:58%"></div></div>
+      </div>
+    </div>
+    <div class="panel p-purple">
+      <div class="panel-title">Sector 2 — pit stop history</div>
+      <div class="exp-item">
+        <div class="exp-role">ML Research Assistant</div>
+        <div class="exp-co">CU Anschutz Medical Campus</div>
+        <div class="exp-time">Sep 2024 — Present</div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-role">SDE Intern</div>
+        <div class="exp-co">Bragify</div>
+        <div class="exp-time">Feb 2025 — May 2025</div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-role">Project Intern</div>
+        <div class="exp-co">Samsung R&D Institute India</div>
+        <div class="exp-time">Jun 2021 — Feb 2022</div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-role">ISA President</div>
+        <div class="exp-co">University of Colorado Denver</div>
+        <div class="exp-time">Leadership</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

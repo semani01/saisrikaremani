@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>F1 Portfolio — DRS Project Overlay</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0a0a0e; display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+.overlay-screen { width: 100%; max-width: 780px; min-height: 480px; background: #111114; border-radius: 12px; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; }
+.track-dim { position: absolute; inset: 0; }
+.grass-l2 { position: absolute; left: 0; top: 0; width: calc(50% - 108px); height: 100%; background: #141e12; }
+.grass-r2 { position: absolute; right: 0; top: 0; width: calc(50% - 108px); height: 100%; background: #141e12; }
+.trk2 { position: absolute; left: 50%; top: 0; transform: translateX(-50%); width: 200px; height: 100%; background: #222228; }
+.drs-stripe { position: absolute; left: calc(50% - 100px); top: 0; width: 200px; height: 100%; background: repeating-linear-gradient(to bottom, transparent 0, transparent 40px, rgba(83,74,183,0.1) 40px, rgba(83,74,183,0.1) 80px); }
+.drs-label { position: absolute; top: 14px; left: 50%; transform: translateX(-50%); background: rgba(83,74,183,0.3); border: 1px solid #534ab7; border-radius: 4px; padding: 3px 12px; font-size: 11px; color: #afa9ec; letter-spacing: 1px; z-index: 1; }
+.dim { position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
+.project-card { position: relative; z-index: 2; background: rgba(16,16,20,0.96); border: 1px solid #2a2a32; border-radius: 12px; padding: 24px 28px; max-width: 420px; width: 90%; }
+.proj-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+.proj-name { font-size: 18px; font-weight: 500; color: #e8e6e0; }
+.proj-type { font-size: 11px; color: #6a6860; margin-top: 4px; letter-spacing: 1px; text-transform: uppercase; }
+.close-btn { width: 28px; height: 28px; background: #1a1a22; border: 1px solid #2a2a32; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #6a6860; font-size: 14px; }
+.proj-desc { font-size: 13px; color: #9a9890; line-height: 1.65; margin-bottom: 16px; }
+.metrics-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+.metric { background: #1a1a22; border-radius: 8px; padding: 10px 12px; text-align: center; }
+.metric-val { font-size: 16px; font-weight: 500; font-family: 'SF Mono', 'Cascadia Code', monospace; color: #e8e6e0; }
+.metric-label { font-size: 10px; color: #6a6860; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
+.metric-val.green { color: #5dca85; }
+.metric-val.amber { color: #ef9f27; }
+.metric-val.purple { color: #afa9ec; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.tag { padding: 3px 10px; border-radius: 4px; font-size: 11px; }
+.tag.py { background: rgba(239,159,39,0.15); color: #ef9f27; border: 1px solid rgba(239,159,39,0.25); }
+.tag.ml { background: rgba(93,202,133,0.12); color: #5dca85; border: 1px solid rgba(93,202,133,0.2); }
+.tag.data { background: rgba(133,183,235,0.12); color: #85b7eb; border: 1px solid rgba(133,183,235,0.2); }
+.tag.chain { background: rgba(175,169,236,0.12); color: #afa9ec; border: 1px solid rgba(175,169,236,0.2); }
+.proj-links { display: flex; gap: 10px; }
+.proj-link { display: flex; align-items: center; gap: 5px; padding: 6px 14px; border-radius: 6px; font-size: 12px; cursor: pointer; border: 1px solid #2a2a32; color: #9a9890; text-decoration: none; }
+.proj-link:hover { border-color: #4a4a52; color: #e8e6e0; }
+.proj-link.primary { background: #534ab7; border-color: #534ab7; color: #e8e6e0; }
+.hud-sector { position: absolute; top: 14px; left: 14px; background: rgba(10,10,14,0.88); border: 1px solid #2a2a32; border-radius: 8px; padding: 8px 12px; z-index: 1; }
+.hud-sector-label { font-size: 10px; color: #6a6860; letter-spacing: 1px; }
+.hud-sector-val { font-size: 13px; color: #ef9f27; font-weight: 500; margin-top: 2px; }
+</style>
+</head>
+<body>
+<div class="overlay-screen">
+  <div class="track-dim">
+    <div class="grass-l2"></div>
+    <div class="grass-r2"></div>
+    <div class="trk2"></div>
+    <div class="drs-stripe"></div>
+  </div>
+  <div class="dim"></div>
+  <div class="drs-label">DRS zone active</div>
+  <div class="hud-sector">
+    <div class="hud-sector-label">Sector 3 — Projects</div>
+    <div class="hud-sector-val">AI Stock Picker</div>
+  </div>
+  <div class="project-card">
+    <div class="proj-header">
+      <div>
+        <div class="proj-name">AI Stock Picker</div>
+        <div class="proj-type">Machine learning / finance</div>
+      </div>
+      <div class="close-btn">×</div>
+    </div>
+    <div class="proj-desc">End-to-end ML pipeline that predicts one-year stock returns using fundamental financial data. Trained and compared six regression models, built a backtesting framework benchmarked against the S&P 500, and deployed Random Forest for live picks — timestamped on the Bitcoin blockchain.</div>
+    <div class="metrics-row">
+      <div class="metric">
+        <div class="metric-val green">6</div>
+        <div class="metric-label">Models tested</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val amber">RF</div>
+        <div class="metric-label">Best model</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val purple">BTC</div>
+        <div class="metric-label">Timestamped</div>
+      </div>
+    </div>
+    <div class="tags">
+      <div class="tag py">Python</div>
+      <div class="tag ml">Scikit-learn</div>
+      <div class="tag data">Pandas</div>
+      <div class="tag ml">Random Forest</div>
+      <div class="tag chain">Blockchain</div>
+      <div class="tag data">Backtesting</div>
+    </div>
+    <div class="proj-links">
+      <a class="proj-link primary" href="#">View on GitHub</a>
+      <a class="proj-link" href="#">Explore case study</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

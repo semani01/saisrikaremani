@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>F1 Portfolio — Car Selection</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0a0a0e; display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+.screen { width: 100%; max-width: 780px; min-height: 480px; background: #0f0f13; border-radius: 12px; overflow: hidden; position: relative; }
+.top-bar { display: flex; justify-content: space-between; align-items: center; padding: 20px 28px 0; }
+.name { color: #e8e6e0; font-size: 22px; font-weight: 500; letter-spacing: 0.5px; }
+.tagline { color: #7a786f; font-size: 13px; margin-top: 2px; }
+.nav-hint { color: #5a584f; font-size: 12px; text-align: right; }
+.title-bar { text-align: center; padding: 32px 0 8px; }
+.title-main { color: #a09e96; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; }
+.title-sub { color: #e8e6e0; font-size: 18px; font-weight: 500; margin-top: 6px; }
+.garage { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 14px; padding: 24px 28px 32px; }
+.car-slot { border-radius: 10px; padding: 20px 14px; text-align: center; cursor: pointer; transition: transform 0.15s, border-color 0.2s; border: 1.5px solid transparent; position: relative; }
+.car-slot:hover { transform: translateY(-4px); }
+.car-slot.merc { background: #1a1f1a; border-color: #2d5a3a; }
+.car-slot.merc:hover { border-color: #00d2be; }
+.car-slot.ferr { background: #1f1a1a; border-color: #5a2d2d; }
+.car-slot.ferr:hover { border-color: #dc1430; }
+.car-slot.mcl { background: #1f1c1a; border-color: #5a4a2d; }
+.car-slot.mcl:hover { border-color: #ff8000; }
+.car-slot.rb { background: #1a1a22; border-color: #2d2d5a; }
+.car-slot.rb:hover { border-color: #3671c6; }
+.car-icon { width: 80px; height: 36px; margin: 0 auto 14px; border-radius: 18px 18px 4px 4px; position: relative; }
+.merc .car-icon { background: #00d2be; }
+.ferr .car-icon { background: #dc1430; }
+.mcl .car-icon { background: #ff8000; }
+.rb .car-icon { background: #3671c6; }
+.car-icon::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 60%; height: 6px; border-radius: 0 0 3px 3px; background: rgba(0,0,0,0.4); }
+.team-name { color: #c8c6be; font-size: 14px; font-weight: 500; }
+.team-sub { color: #6a6860; font-size: 12px; margin-top: 4px; }
+.number { position: absolute; top: 8px; right: 10px; font-size: 20px; font-weight: 500; opacity: 0.15; }
+.merc .number { color: #00d2be; }
+.ferr .number { color: #dc1430; }
+.mcl .number { color: #ff8000; }
+.rb .number { color: #3671c6; }
+.bottom-bar { display: flex; justify-content: center; gap: 24px; padding: 0 28px 24px; }
+.hint { color: #4a4840; font-size: 12px; display: flex; align-items: center; gap: 6px; }
+.key { display: inline-block; padding: 2px 8px; border: 1px solid #3a3830; border-radius: 4px; color: #7a786f; font-size: 11px; font-family: monospace; }
+.lights { display: flex; justify-content: center; gap: 10px; padding: 0 0 20px; }
+.light { width: 18px; height: 18px; border-radius: 50%; background: #2a2820; border: 1px solid #3a3830; }
+
+@media (max-width: 600px) {
+  .garage { grid-template-columns: repeat(2, 1fr); }
+  .top-bar { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .nav-hint { text-align: left; }
+}
+</style>
+</head>
+<body>
+<div class="screen">
+  <div class="top-bar">
+    <div>
+      <div class="name">Sai Srikar Emani</div>
+      <div class="tagline">ML engineer / full-stack developer / builder</div>
+    </div>
+    <div class="nav-hint">Austin, TX<br/>MS Computer Science, CU Denver</div>
+  </div>
+  <div class="title-bar">
+    <div class="title-main">Grand Prix of Portfolio</div>
+    <div class="title-sub">Select your car to begin the race</div>
+  </div>
+  <div class="lights">
+    <div class="light"></div><div class="light"></div><div class="light"></div><div class="light"></div><div class="light"></div>
+  </div>
+  <div class="garage">
+    <div class="car-slot merc">
+      <div class="number">44</div>
+      <div class="car-icon"></div>
+      <div class="team-name">Silver arrow</div>
+      <div class="team-sub">Precision engineering</div>
+    </div>
+    <div class="car-slot ferr">
+      <div class="number">16</div>
+      <div class="car-icon"></div>
+      <div class="team-name">Scuderia</div>
+      <div class="team-sub">Passion-driven</div>
+    </div>
+    <div class="car-slot mcl">
+      <div class="number">04</div>
+      <div class="car-icon"></div>
+      <div class="team-name">Papaya</div>
+      <div class="team-sub">Innovation first</div>
+    </div>
+    <div class="car-slot rb">
+      <div class="number">01</div>
+      <div class="car-icon"></div>
+      <div class="team-name">Blue bull</div>
+      <div class="team-sub">Relentless pace</div>
+    </div>
+  </div>
+  <div class="bottom-bar">
+    <div class="hint"><span class="key">Click</span> to select car</div>
+    <div class="hint"><span class="key">M</span> toggle music</div>
+    <div class="hint"><span class="key">S</span> toggle sound</div>
+  </div>
+</div>
+</body>
+</html>

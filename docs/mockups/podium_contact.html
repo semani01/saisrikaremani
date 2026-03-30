@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>F1 Portfolio — Podium Contact</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0a0a0e; display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+.podium-screen { width: 100%; max-width: 780px; min-height: 480px; background: #111114; border-radius: 12px; overflow: hidden; padding: 32px 28px; text-align: center; }
+.cheq { display: flex; justify-content: center; gap: 3px; margin-bottom: 20px; }
+.cheq-sq { width: 10px; height: 10px; }
+.cheq-w { background: #e8e6e0; }
+.cheq-b { background: #2a2a30; }
+.finish-title { font-size: 11px; color: #6a6860; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 6px; }
+.finish-name { font-size: 26px; font-weight: 500; color: #e8e6e0; margin-bottom: 4px; }
+.finish-sub { font-size: 14px; color: #7a786f; margin-bottom: 28px; }
+.podium-row { display: flex; justify-content: center; align-items: flex-end; gap: 16px; margin-bottom: 32px; }
+.podium-block { text-align: center; cursor: pointer; }
+.podium-stand { border-radius: 8px 8px 0 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 16px 20px 12px; min-width: 130px; }
+.p1 .podium-stand { height: 140px; background: rgba(239,159,39,0.12); border: 1px solid rgba(239,159,39,0.3); border-bottom: none; }
+.p2 .podium-stand { height: 110px; background: rgba(133,183,235,0.1); border: 1px solid rgba(133,183,235,0.25); border-bottom: none; }
+.p3 .podium-stand { height: 85px; background: rgba(175,169,236,0.1); border: 1px solid rgba(175,169,236,0.25); border-bottom: none; }
+.pos-num { font-size: 22px; font-weight: 500; font-family: 'SF Mono', 'Cascadia Code', monospace; margin-bottom: 6px; }
+.p1 .pos-num { color: #ef9f27; }
+.p2 .pos-num { color: #85b7eb; }
+.p3 .pos-num { color: #afa9ec; }
+.pos-label { font-size: 13px; font-weight: 500; color: #e8e6e0; }
+.pos-detail { font-size: 11px; color: #6a6860; margin-top: 3px; }
+.pos-icon { margin-bottom: 8px; }
+.pos-icon svg { width: 20px; height: 20px; }
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 28px; max-width: 500px; margin-left: auto; margin-right: auto; }
+.stat-card { background: #1a1a22; border-radius: 8px; padding: 12px 10px; }
+.stat-val { font-size: 18px; font-weight: 500; font-family: 'SF Mono', 'Cascadia Code', monospace; color: #e8e6e0; }
+.stat-label { font-size: 10px; color: #6a6860; margin-top: 3px; letter-spacing: 0.5px; text-transform: uppercase; }
+.dl-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 24px; background: #534ab7; border-radius: 8px; font-size: 13px; color: #e8e6e0; font-weight: 500; cursor: pointer; font-family: inherit; border: none; margin-bottom: 20px; text-decoration: none; }
+.dl-btn:hover { background: #6358c4; }
+.dl-btn svg { width: 14px; height: 14px; }
+.footer-note { font-size: 12px; color: #4a4840; }
+.footer-note span { color: #6a6860; }
+.replay { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; padding: 6px 14px; border: 1px solid #2a2a32; border-radius: 6px; font-size: 12px; color: #7a786f; cursor: pointer; font-family: inherit; background: none; }
+.replay:hover { border-color: #4a4a52; color: #e8e6e0; }
+</style>
+</head>
+<body>
+<div class="podium-screen">
+  <div class="cheq">
+    <div class="cheq-sq cheq-w"></div><div class="cheq-sq cheq-b"></div><div class="cheq-sq cheq-w"></div><div class="cheq-sq cheq-b"></div><div class="cheq-sq cheq-w"></div><div class="cheq-sq cheq-b"></div><div class="cheq-sq cheq-w"></div><div class="cheq-sq cheq-b"></div><div class="cheq-sq cheq-w"></div><div class="cheq-sq cheq-b"></div><div class="cheq-sq cheq-w"></div><div class="cheq-sq cheq-b"></div>
+  </div>
+  <div class="finish-title">Race complete</div>
+  <div class="finish-name">Sai Srikar Emani</div>
+  <div class="finish-sub">ML engineer / full-stack developer / Austin, TX</div>
+  <div class="podium-row">
+    <div class="podium-block p2">
+      <div class="podium-stand">
+        <div class="pos-icon"><svg viewBox="0 0 20 20" fill="none"><path d="M10 2L2 8l2 10h12l2-10L10 2z" stroke="#85b7eb" stroke-width="1.2"/><circle cx="10" cy="10" r="3" stroke="#85b7eb" stroke-width="1"/></svg></div>
+        <div class="pos-num">P2</div>
+        <div class="pos-label">GitHub</div>
+        <div class="pos-detail">semani01</div>
+      </div>
+    </div>
+    <div class="podium-block p1">
+      <div class="podium-stand">
+        <div class="pos-icon"><svg viewBox="0 0 20 20" fill="none"><rect x="2" y="4" width="16" height="12" rx="2" stroke="#ef9f27" stroke-width="1.2"/><path d="M2 8l8 4 8-4" stroke="#ef9f27" stroke-width="1"/></svg></div>
+        <div class="pos-num">P1</div>
+        <div class="pos-label">Email</div>
+        <div class="pos-detail">esrikar01@gmail.com</div>
+      </div>
+    </div>
+    <div class="podium-block p3">
+      <div class="podium-stand">
+        <div class="pos-icon"><svg viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="3" stroke="#afa9ec" stroke-width="1.2"/><path d="M6 9h0M6 7v6M14 7v6M10 7v3h4" stroke="#afa9ec" stroke-width="1"/></svg></div>
+        <div class="pos-num">P3</div>
+        <div class="pos-label">LinkedIn</div>
+        <div class="pos-detail">saisrikaremani</div>
+      </div>
+    </div>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-val" style="color:#5dca85">3</div>
+      <div class="stat-label">Sectors</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" style="color:#ef9f27">6+</div>
+      <div class="stat-label">Projects</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" style="color:#85b7eb">3</div>
+      <div class="stat-label">Roles</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" style="color:#afa9ec">3.77</div>
+      <div class="stat-label">GPA</div>
+    </div>
+  </div>
+  <a class="dl-btn" href="#"><svg viewBox="0 0 16 16" fill="none"><path d="M8 2v8M5 7l3 3 3-3M3 12h10" stroke="#e8e6e0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Download resume</a>
+  <div class="footer-note">Built with React, Three.js, and Claude API by <span>Sai Emani</span></div>
+  <button class="replay">Race again with a different car</button>
+</div>
+</body>
+</html>

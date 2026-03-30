@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>F1 Portfolio — Race Engineer Chat</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0a0a0e; display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+.chat-screen { width: 100%; max-width: 780px; min-height: 500px; background: #111114; border-radius: 12px; overflow: hidden; display: flex; }
+.track-side { flex: 1; position: relative; overflow: hidden; }
+.t-grass { position: absolute; inset: 0; background: #141e12; }
+.t-road { position: absolute; left: 50%; top: 0; transform: translateX(-50%); width: 180px; height: 100%; background: #222228; }
+.t-line { position: absolute; left: 50%; top: 0; transform: translateX(-50%); width: 2px; height: 100%; background: repeating-linear-gradient(to bottom, #444 0, #444 10px, transparent 10px, transparent 20px); }
+.t-car { position: absolute; left: 50%; top: 55%; transform: translate(-50%,-50%); width: 24px; height: 42px; background: #ff8000; border-radius: 5px 5px 2px 2px; }
+.t-blur { position: absolute; inset: 0; background: rgba(0,0,0,0.35); }
+.mini-hud { position: absolute; top: 14px; left: 14px; background: rgba(10,10,14,0.85); border: 1px solid #2a2a32; border-radius: 6px; padding: 8px 10px; }
+.mini-hud-row { font-size: 11px; color: #6a6860; padding: 2px 0; }
+.mini-hud-row span { color: #9a9890; font-weight: 500; }
+.chat-panel { width: 320px; background: rgba(10,10,14,0.96); border-left: 1px solid #2a2a32; display: flex; flex-direction: column; }
+.chat-header { padding: 14px 16px; border-bottom: 1px solid #2a2a32; display: flex; align-items: center; gap: 10px; }
+.ch-icon { width: 32px; height: 32px; background: #534ab7; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.ch-icon svg { width: 16px; height: 16px; }
+.ch-info { flex: 1; }
+.ch-name { font-size: 14px; color: #e8e6e0; font-weight: 500; }
+.ch-status { font-size: 11px; color: #5dca85; display: flex; align-items: center; gap: 4px; }
+.ch-dot { width: 6px; height: 6px; background: #5dca85; border-radius: 50%; }
+.ch-close { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; color: #6a6860; cursor: pointer; font-size: 13px; }
+.chat-body { flex: 1; padding: 14px 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+.msg { max-width: 92%; border-radius: 10px; padding: 10px 14px; font-size: 13px; line-height: 1.55; }
+.msg-eng { background: #1a1a24; color: #c8c6be; border: 1px solid #2a2a32; align-self: flex-start; }
+.msg-user { background: #534ab7; color: #e8e6e0; align-self: flex-end; }
+.msg-sender { font-size: 10px; color: #6a6860; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+.radio-tag { display: inline-block; font-size: 10px; background: rgba(83,74,183,0.2); color: #afa9ec; padding: 1px 6px; border-radius: 3px; margin-left: 6px; }
+.chat-input-area { padding: 12px 16px; border-top: 1px solid #2a2a32; display: flex; gap: 8px; }
+.chat-input { flex: 1; background: #1a1a22; border: 1px solid #2a2a32; border-radius: 8px; padding: 8px 12px; color: #e8e6e0; font-size: 13px; font-family: inherit; outline: none; }
+.chat-input:focus { border-color: #534ab7; }
+.send-btn { width: 34px; height: 34px; background: #534ab7; border: none; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.send-btn svg { width: 14px; height: 14px; }
+.suggest { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px 12px; }
+.sug-btn { padding: 5px 10px; background: #1a1a22; border: 1px solid #2a2a32; border-radius: 6px; font-size: 11px; color: #9a9890; cursor: pointer; font-family: inherit; }
+.sug-btn:hover { border-color: #534ab7; color: #afa9ec; }
+</style>
+</head>
+<body>
+<div class="chat-screen">
+  <div class="track-side">
+    <div class="t-grass"></div>
+    <div class="t-road"></div>
+    <div class="t-line"></div>
+    <div class="t-car"></div>
+    <div class="t-blur"></div>
+    <div class="mini-hud">
+      <div class="mini-hud-row">Sector <span>2 — Experience</span></div>
+      <div class="mini-hud-row">Speed <span>203 kph</span></div>
+      <div class="mini-hud-row">Compound <span style="color:#ef9f27">Python</span></div>
+    </div>
+  </div>
+  <div class="chat-panel">
+    <div class="chat-header">
+      <div class="ch-icon"><svg viewBox="0 0 16 16" fill="none"><path d="M8 1C4.13 1 1 3.58 1 6.75c0 1.77 1.06 3.35 2.72 4.38L3 14l3.2-1.88c.58.12 1.18.18 1.8.18 3.87 0 7-2.58 7-5.75S11.87 1 8 1z" stroke="#e8e6e0" stroke-width="1.2"/></svg></div>
+      <div class="ch-info">
+        <div class="ch-name">Race engineer<span class="radio-tag">AI</span></div>
+        <div class="ch-status"><div class="ch-dot"></div>On radio</div>
+      </div>
+      <div class="ch-close">×</div>
+    </div>
+    <div class="chat-body">
+      <div class="msg msg-eng">
+        <div class="msg-sender">Engineer</div>
+        Copy that. Welcome to the race. I'm Sai's race engineer — ask me anything about his career, projects, or technical stack. What do you want to know?
+      </div>
+      <div class="msg msg-user">What's his tire strategy?</div>
+      <div class="msg msg-eng">
+        <div class="msg-sender">Engineer</div>
+        Running a multi-compound strategy. Primary stint on Python and PyTorch — that's where the ML research and deep learning work happens. Hards are JavaScript and Node.js for the second stint — full-stack delivery at Bragify. Strong degradation management on both. He can push on either compound.
+      </div>
+      <div class="msg msg-user">Tell me about his ML experience</div>
+      <div class="msg msg-eng">
+        <div class="msg-sender">Engineer</div>
+        Currently running as ML Research Assistant at CU Anschutz — building an end-to-end stroke rehab analytics pipeline. Markerless motion capture, OpenSim inverse kinematics, Moco optimization. Before that, Samsung R&D for an image inpainting pipeline in PyTorch. He's got race pace in supervised learning, transformers, and computer vision. Consistent across all conditions.
+      </div>
+    </div>
+    <div class="suggest">
+      <button class="sug-btn">What projects has he built?</button>
+      <button class="sug-btn">Leadership roles?</button>
+      <button class="sug-btn">Tech stack depth?</button>
+    </div>
+    <div class="chat-input-area">
+      <input class="chat-input" placeholder="Ask the engineer..." />
+      <button class="send-btn"><svg viewBox="0 0 16 16" fill="none"><path d="M2 8h12M10 4l4 4-4 4" stroke="#e8e6e0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+  </div>
+</div>
+</body>
+</html>
