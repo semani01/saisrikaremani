@@ -73,6 +73,37 @@
 
 ---
 
+## Phase 2 — 2026-03-31
+
+### What I built
+- `LightsOutSequence` component — full F1 start sequence: fade-in → 5 red lights illuminate one-by-one → random tension hold (0.5–2.5s) → all lights go dark → 0.5s blackout → transition to `'circuit'` game phase
+- Car silhouette shown center-screen in selected team's accent color with glow during sequence
+- Single `F1-lights-out-audio.m4a` track plays via Howler covering the entire sequence
+- Procedural engine roar via Tone.js fires the moment lights go dark — 3 detuned sawtooth oscillators, BPF that tracks the rev sweep (85 Hz → 280 Hz over 2.8s), soft-clip waveshaper, pink noise exhaust texture
+- ESC key returns to garage at any point during sequence
+- `page.tsx` updated with phase router: `'lights-out'` → `<LightsOutSequence />`, fallback → `<GaragePage />`
+- `GarageMusic` fade-out tightened to 400ms so it clears cleanly before sequence starts
+
+### What broke / gotchas
+- **Engine roar disappeared** after replacing individual click sounds with the single sequence track — the `playEngineRoar` call was accidentally dropped. Restored separately.
+- **Wrong mute flag for SFX**: `isMuted` controls music (M key), `isVoiceMuted` controls SFX (S key). The sequence was checking `isMuted` for audio playback — fixed to use `isVoiceMuted`.
+- **DJ synth sound**: first V6 attempt used Chebyshev waveshaper + high-frequency turbo sine. Both removed — the natural sawtooth harmonics + soft clip do the job without artificial processing.
+
+### Lessons learned
+- A sawtooth oscillator is already harmonically rich — sweeping its fundamental frequency upward naturally produces the engine scream. Adding high-frequency layers on top makes it sound synthesized rather than mechanical.
+- Tracking the BPF center frequency alongside the oscillator sweep is what keeps the engine tone consistent through the rev range — without it the sound gets thin at the top end.
+- Two separate mute flags (`isMuted` for music, `isVoiceMuted` for SFX) need discipline across every audio component — easy to mix them up.
+
+### Decisions made
+- **Single audio track for lights sequence** (not individual click sounds): `F1-lights-out-audio.m4a` is one cohesive broadcast-quality clip. Simpler, sounds better than 5 separate Howl instances firing in sequence.
+- **Procedural engine roar kept** (not a file): no good CC0 F1 launch audio exists on Freesound/Pixabay. Tone.js synthesis gives full control and zero licensing concerns.
+- **Visual timing decoupled from audio**: the 5 light illuminations are driven by `setInterval` independently of the audio track. This means the visual rhythm stays correct even if the audio file loads slightly late.
+
+### Next session plan
+- Phase 3: The Circuit — 3D track, drivable car, follow camera
+
+---
+
 ## Phase 1 — 2026-03-31
 
 ### What I built

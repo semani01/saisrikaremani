@@ -22,8 +22,9 @@ export function GarageMusic() {
     howl.fade(0, masterVolume * musicVolume, 1500)
 
     return () => {
-      howl.fade(howl.volume(), 0, 600)
-      setTimeout(() => howl.stop(), 650)
+      // Quick fade out when transitioning away from garage
+      howl.fade(howl.volume(), 0, 400)
+      setTimeout(() => howl.stop(), 420)
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 

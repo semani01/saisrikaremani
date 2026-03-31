@@ -53,18 +53,18 @@
 ## Phase 2: Lights Out — Launch Sequence
 > Branch: `feature/phase-2-lights`
 
-- [ ] Build `LightsOutSequence` component with timed animation
-- [ ] Source and add audio files to `/public/audio` (light click, engine roar, optional crowd)
-- [ ] Integrate Howler.js for light click and engine roar sounds
-- [ ] Add random delay (0.5–3s) between last light and lights-out
-- [ ] Implement smooth transition from lights-out to track scene
-- [ ] Respect sound toggle setting from Phase 1
-- [ ] Handle edge case: user pressing back during sequence
-- [ ] Commit and push to `feature/phase-2-lights`
-- [ ] Update CHECKLIST.md and write DEVLOG entry
+- [x] Build `LightsOutSequence` component with timed animation
+- [x] Source and add audio files to `/public/audio` (F1-lights-out-audio.m4a, light-click.mp3)
+- [x] Integrate Howler.js for sequence audio + Tone.js procedural engine roar on lights-out
+- [x] Add random delay (0.5–2.5s) between last light and lights-out
+- [x] Implement smooth transition (blackout phase → `gamePhase: 'circuit'`)
+- [x] Respect SFX toggle (`isVoiceMuted`) — music and SFX toggles correctly separated
+- [x] Handle edge case: ESC key returns user to garage at any point
+- [x] Commit and push to `feature/phase-2-lights`
+- [x] Update CHECKLIST.md and write DEVLOG entry
 - [ ] Create PR, review, and merge to main
 
-**Status: 0 / 10**
+**Status: 9 / 10**
 
 ---
 
@@ -246,7 +246,7 @@
 |-------|------|--------|
 | 0 | Project Scaffolding | 17 / 17 ✅ |
 | 1 | The Garage | 11 / 13 |
-| 2 | Lights Out | 0 / 10 |
+| 2 | Lights Out | 9 / 10 |
 | 3 | The Circuit | 0 / 18 |
 | 4 | Telemetry HUD | 0 / 15 |
 | 5 | DRS Zones | 0 / 19 |
