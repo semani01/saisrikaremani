@@ -20,33 +20,33 @@
 - [x] Create `f1Mappings.ts` with F1 terminology map
 - [x] Add a blank R3F Canvas to `page.tsx`, confirm it renders
 - [x] Create `.env.example` (no actual keys) and `.env.local` (with real keys)
-- [ ] Create GitHub repo named `saisrikaremani`, push initial commit ← next step
-- [ ] Connect Vercel to GitHub (deploys as `saisrikaremani.vercel.app`) ← after merge to main
+- [x] Create GitHub repo named `saisrikaremani`, push initial commit
+- [x] Connect Vercel to GitHub (deploys as `saisrikaremani.vercel.app`)
 - [x] Write first DEVLOG.md entry
 - [x] Update README.md with project description and local dev instructions
 
-**Status: 15 / 17** — push + Vercel connect remaining
+**Status: 17 / 17** ✅
 
 ---
 
 ## Phase 1: The Garage — Car Selection Screen
 > Branch: `feature/phase-1-garage`
 
-- [ ] Build `GaragePage` component with dark theme (`#0f0f13` background)
-- [ ] Build `CarCard` component with four team variants (Silver Arrow, Scuderia, Papaya, Blue Bull)
-- [ ] Implement hover state with stat card expansion (`CarStatsOverlay`)
-- [ ] Wire car selection to Zustand `gameStore.selectedCar`
-- [ ] Add keyboard support (1/2/3/4 to select, Enter to confirm)
-- [ ] Add `LightsRow` (five dark circles at top of screen)
-- [ ] Add `KeyboardHints` bar at bottom
-- [ ] Add Framer Motion entrance animations
-- [ ] Add Music (M) and Sound (S) toggle buttons in footer
+- [x] Build `GaragePage` component with dark theme (`#0f0f13` background)
+- [x] Build `CarCard` component with four team variants (Silver Arrow, Scuderia, Papaya, Blue Bull)
+- [x] Implement hover state with stat card expansion (crossfade inside fixed-height card)
+- [x] Wire car selection to Zustand `gameStore.selectedCar`
+- [x] Add keyboard support (1/2/3/4 to highlight, Enter to confirm, arrow keys to navigate)
+- [x] Add `LightsRow` (five dark circles at top of screen)
+- [x] Add `KeyboardHints` bar at bottom
+- [x] Add Framer Motion entrance animations
+- [x] Add Music (M) and Sound (S) toggle buttons in footer
 - [ ] Test responsive layout (cards stack on mobile)
-- [ ] Commit and push to `feature/phase-1-garage`
-- [ ] Update CHECKLIST.md and write DEVLOG entry
+- [x] Commit and push to `feature/phase-1-garage`
+- [x] Update CHECKLIST.md and write DEVLOG entry
 - [ ] Create PR, review, and merge to main
 
-**Status: 0 / 13**
+**Status: 11 / 13**
 
 ---
 
@@ -244,8 +244,8 @@
 
 | Phase | Name | Status |
 |-------|------|--------|
-| 0 | Project Scaffolding | 0 / 17 |
-| 1 | The Garage | 0 / 13 |
+| 0 | Project Scaffolding | 17 / 17 ✅ |
+| 1 | The Garage | 11 / 13 |
 | 2 | Lights Out | 0 / 10 |
 | 3 | The Circuit | 0 / 18 |
 | 4 | Telemetry HUD | 0 / 15 |

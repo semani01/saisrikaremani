@@ -74,14 +74,14 @@ A Claude-powered AI chatbot acts as the "race engineer," answering questions abo
       page.tsx            ← Entry point: renders <GameRoot />
 
     /components
-      /garage             ← Phase 1: GaragePage, CarCard, CarStatsOverlay, LightsRow, KeyboardHints
+      /garage             ← Phase 1: GaragePage, CarCard (stats inline), LightsRow, KeyboardHints
       /lights             ← Phase 2: LightsOutSequence
       /track              ← Phase 3: TrackMesh, CarModel, TrackEnvironment, SectorBanners, TracksideElements
       /hud                ← Phase 4: HUDLayout, SectorPanel, ContextTelemetry, CircuitMinimap, ExpandedTelemetry, RaceEngineerButton
       /projects           ← Phase 5: DRSZone, CompactProjectCard, CaseStudyOverlay, individual case studies
       /engineer           ← Phase 6: RaceEngineerPanel, ChatMessage, SuggestedPrompts
       /podium             ← Phase 7: PodiumScene, ContactPodium, RaceSummaryStats
-      /audio              ← Phase 8: AudioManager
+      /audio              ← Phase 1+: GarageMusic. Phase 8: AudioManager
       /ui                 ← Shared: LoadingScreen, Button, Badge, etc.
 
     /store
@@ -441,4 +441,4 @@ All API keys are accessed only in `/api/*` server routes. They are never exposed
 
 ---
 
-*Last updated: Phase 0 — 2026-03-26*
+*Last updated: Phase 1 — 2026-03-31*

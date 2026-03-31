@@ -73,6 +73,34 @@
 
 ---
 
+## Phase 1 — 2026-03-31
+
+### What I built
+- `GaragePage` — full-screen dark container with top bar (name/location), title block, lights row, car grid, keyboard hints footer
+- `CarCard` — fixed-height card with team accent color, car silhouette, hover state that crossfades tagline ↔ stats + Select button (Framer Motion `AnimatePresence mode="wait"`)
+- `LightsRow` — five unlit F1 start lights with staggered Framer Motion fade-in
+- `KeyboardHints` — bottom bar with M/S toggles wired to `audioStore`, keyboard shortcut labels
+- `GarageMusic` — Howler.js background music component with 1.5s fade-in, fade-out on unmount, live sync to `audioStore.isMuted`
+- Updated `page.tsx` to render `<GaragePage />`, updated metadata (title + description), updated `globals.css` base background to `#0a0a0e`
+
+### What broke / gotchas
+- **Grid layout shake on hover**: the stats panel expanding inside the grid card pushed all sibling cards up/down. Fixed by making the card a fixed `180px` height and crossfading the content area instead of expanding it.
+- **Stats dropdown clipping**: first attempt used `position: absolute` below the card but it was clipped by the parent container. Abandoned in favour of the fixed-height crossfade approach — cleaner and no overflow issues.
+- **`whileHover={{ y: -4 }}`**: the Framer Motion lift conflicted with the stats expansion animation causing a jitter loop. Removed the y-lift, replaced with a box-shadow glow on hover.
+
+### Lessons learned
+- Fixed-height cards with internal crossfades are far more stable than expanding cards in a CSS grid — they never affect sibling layout.
+- `AnimatePresence mode="wait"` is the right tool for crossfading between two states (tagline → stats) without both being visible simultaneously.
+- Howler `fade()` works on the playing sound instance directly — calling `howl.fade(from, to, duration)` after `play()` gives smooth volume ramp without a separate volume setter.
+
+### Decisions made
+- **No official F1 audio**: Brian Tyler's F1 theme is commercially licensed. Used a royalty-free Pixabay track (`joyinsound-sports-energetic-background-music-390232.mp3`) as garage background music instead.
+- **`CarStatsOverlay` dropped as a separate component**: the roadmap listed it, but the fixed-height crossfade approach bakes the stats into `CarCard` itself — fewer components, same UX.
+- **M key = music mute, S key = SFX mute**: mapped to `audioStore.isMuted` and `audioStore.isVoiceMuted` respectively, consistent with the roadmap.
+
+### Next session plan
+- Phase 2: Lights Out sequence — five red lights illuminate one by one, random pause, all go dark, transition to circuit
+
 <!-- Template for future entries:
 
 ## Phase N — YYYY-MM-DD
