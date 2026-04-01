@@ -132,6 +132,45 @@
 ### Next session plan
 - Phase 2: Lights Out sequence — five red lights illuminate one by one, random pause, all go dark, transition to circuit
 
+---
+
+## Phase 3 — 2026-04-01
+
+### What I built
+- `TrackMesh` — procedural ribbon geometry from the Catmull-Rom spline: asphalt road, red kerbs, grass strips, outer ground. Five `BufferGeometry` meshes with CCW winding so normals point up. Y-offsets prevent z-fighting.
+- `CarModel` — procedural F1 car composed of ~20 Three.js primitives: chassis body, sidepods, cockpit, halo, front/rear wings with endplates and DRS flap, four wheels with hubs. Team accent color drives the livery.
+- `useCarControls` — keyboard hook returning a stable `MutableRefObject<CarKeys>` (not state), so the physics loop reads it without triggering re-renders.
+- `CarPhysics` — the heart of Phase 3: `useFrame` loop integrating speed (accel/brake/coast), lateral offset (steer + spring-back), and spline progress. Derives 3D world position + car heading from the curve every frame. Throttled Zustand writes at ~10fps for sector detection, POI proximity (pre-baked world positions), and `splineProgress`. Passes positionRef / rotationRef to CarModel and FollowCamera.
+- `FollowCamera` — reads positionRef/rotationRef each frame, lerps camera toward ideal chase position (10 units behind, 6 above) and look-at point (5 units ahead). Uses `useThree` to manipulate the Canvas default camera.
+- `TrackElements` — sector gantry gates at t=0/0.33/0.66 with illuminated beams, pillar point lights, and drei `<Text>` labels. Glowing orb POI markers with `<Billboard>` labels. 9-row LeetCode timing tower with emissive screen strips.
+- `CircuitMinimap` — SVG overlay pre-baking the track path (sector-colour-coded) at module init. Only the car dot recomputes on `splineProgress` change.
+- `LoadingScreen` — drei `useProgress` + animated dot grid shown during Suspense.
+- `CircuitScene` — R3F Canvas with fog, ambient + directional lights, `Stars` background, `AdaptiveDpr`, and all circuit sub-components. HTML overlays: lap progress bar, sector HUD, M/S audio toggles, keyboard hints, minimap.
+- `CircuitEngine` — continuous sawtooth oscillator drone (same signal chain as engineSynth) with `setSpeed(0–1)` mapping to 90–270 Hz frequency sweep. Speed-reactive volume. Starts on circuit mount, stops on ESC/unmount/SFX-mute.
+- `page.tsx` updated: `'circuit'` phase routes to `<CircuitScene />`.
+- `trackCurve.ts` — lazy singleton for the shared `CatmullRomCurve3`.
+
+### What broke / gotchas
+- **Car orientation formula**: getting `rotation.y` right took careful geometry. Formula: `atan2(–tx, –tz)` where `(tx, tz)` is the spline tangent. This aligns the car's local –Z with the direction of travel (Three.js forward = –Z convention).
+- **Procedural car instead of GLTF**: no CC0 F1 model was readily available and downloadable in-session. Built a convincing low-poly procedural car from boxes, cylinders, and a torus. GLTF swap deferred to Phase 8.
+- **PerformanceMonitor** from drei: API props unclear at version ^10. Removed in favour of just `AdaptiveDpr`.
+- **Zustand writes inside useFrame**: throttling to ~10fps (100ms gate) prevents Zustand from thrashing React's reconciler at 60fps.
+
+### Lessons learned
+- Pre-baking POI world positions at mount time (not per-frame lookup) is the right call — avoids N curve evaluations every frame.
+- The "left perpendicular in XZ plane" for a tangent `(tx, 0, tz)` is `(–tz, 0, tx)` — a 90° CCW rotation. This is the building block for lateral offsets, ribbon geometry, and gate orientations.
+- Singleton pattern for the circuit curve (`trackCurve.ts`) avoids redundant `CatmullRomCurve3` construction across all components that need it.
+- R3F `useFrame` + refs (never state) is the standard pattern for physics-driven movement. State = re-renders = jank.
+
+### Decisions made
+- **Procedural car kept** (not downloaded GLTF): more control, no licensing risk, and geometrically interesting. GLTF swap is a Phase 8 enhancement, not a Phase 3 blocker.
+- **ESC returns to garage** (same pattern as LightsOutSequence): consistent UX throughout.
+- **Engine sound starts immediately** (not on first throttle input): the idle drone is part of the atmosphere. It stops cleanly on ESC/unmount.
+- **Fog at 80–220 units**: hides the track ends from the camera angle while leaving ~2 sector lengths visible ahead. Creates depth without revealing the closed-loop seam.
+
+### Next session plan
+- Phase 4: Telemetry HUD — sector panel, context telemetry near POIs, minimap POI dots, race engineer button placeholder
+
 <!-- Template for future entries:
 
 ## Phase N — YYYY-MM-DD

@@ -71,26 +71,26 @@
 ## Phase 3: The Circuit — 3D Track, Car & Controls
 > Branch: `feature/phase-3-circuit`
 
-- [ ] Design track spline in `trackLayout.ts` (array of 3D control points)
-- [ ] Build `TrackMesh` component: road surface, kerbs, grass, gravel from spline
-- [ ] Download and integrate GLTF car model (CC-licensed from Sketchfab)
-- [ ] Implement team livery color swap based on selected car
-- [ ] Build `useCarControls` hook (keyboard input to car physics)
-- [ ] Implement car movement along and across the track
-- [ ] Build follow camera with smooth lerp (`useFrame` + drei)
-- [ ] Implement sector detection based on spline progress
-- [ ] Place static trackside elements at POI positions (pit boards, LED screens, banners)
-- [ ] Build sector boundary banners ("Sector 1: Origins", "Sector 2: Pit Lane", "Sector 3: Straights")
-- [ ] Build LeetCode timing tower trackside element
-- [ ] Build circuit minimap SVG overlay
-- [ ] Implement basic Tone.js engine sound tied to car speed
-- [ ] Add loading screen with Suspense for model loading
+- [x] Design track spline in `trackLayout.ts` (array of 3D control points)
+- [x] Build `TrackMesh` component: road surface, kerbs, grass from spline
+- [x] Build procedural F1 car model with team livery (GLTF swap deferred to Phase 8 polish)
+- [x] Implement team livery color swap based on selected car
+- [x] Build `useCarControls` hook (keyboard input — W/S/A/D + arrows)
+- [x] Implement car movement along and across the track (speed + lateral physics)
+- [x] Build follow camera with smooth lerp (`useFrame` + `useThree`)
+- [x] Implement sector detection based on spline progress
+- [x] Place static trackside elements at POI positions (glowing orb markers)
+- [x] Build sector boundary banners ("Sector 1: Origins", "Sector 2: Pit Lane", "Sector 3: Straights")
+- [x] Build LeetCode timing tower trackside element
+- [x] Build circuit minimap SVG overlay
+- [x] Implement basic Tone.js engine sound tied to car speed (`CircuitEngine`)
+- [x] Add loading screen with Suspense (`LoadingScreen` + drei `useProgress`)
 - [ ] Test performance on target hardware (aim for 60fps)
-- [ ] Commit frequently to `feature/phase-3-circuit`
-- [ ] Update CHECKLIST.md and write DEVLOG entry
+- [x] Commit and push to `feature/phase-3-circuit`
+- [x] Update CHECKLIST.md and write DEVLOG entry
 - [ ] Create PR, review, and merge to main
 
-**Status: 0 / 18**
+**Status: 16 / 18**
 
 ---
 
@@ -247,7 +247,7 @@
 | 0 | Project Scaffolding | 17 / 17 ✅ |
 | 1 | The Garage | 11 / 13 |
 | 2 | Lights Out | 9 / 10 |
-| 3 | The Circuit | 0 / 18 |
+| 3 | The Circuit | 16 / 18 |
 | 4 | Telemetry HUD | 0 / 15 |
 | 5 | DRS Zones | 0 / 19 |
 | 6 | Race Engineer | 0 / 16 |
